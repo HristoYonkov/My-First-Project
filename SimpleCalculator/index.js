@@ -38,12 +38,33 @@ function divide(e) {
     }
 }
 
+
+function multiplication(e) {
+    if (operation === '') {
+        hiddenInputField = document.getElementById('in').value;
+        operation = e.target.innerText;
+        
+    } else if (operation === 'x' && isClear) {
+        equal();
+        hiddenInputField = document.getElementById('in').value;
+        operation = e.target.innerText;
+    }
+}
+
+
 function equal (e) {
     let firstNum = Number(hiddenInputField);
     let secondNum = Number(document.getElementById('in').value);
     let result;
-    if(operation === '/') {
+    if (operation === '/') {
         result = firstNum / secondNum;
+        document.getElementById('in').value = result;
+        hiddenInputField = '';
+        operation = '';
+        isClear = false;
+
+    } else if (operation === 'x') {
+        result = firstNum * secondNum;
         document.getElementById('in').value = result;
         hiddenInputField = '';
         operation = '';
