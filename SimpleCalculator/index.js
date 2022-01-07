@@ -1,13 +1,24 @@
-
 let hiddenInputField = '';
 let operation = '';
 let isClear = false;
+let startover = false;
+document.getElementById('in').value = '0';
+
 
 function press (e) {
     let btnNumber = e.target.innerText;
+    if (startover) {
+        hiddenInputField = '';
+        startover = false;
+        document.getElementById('in').value = '';
+    }
 
     if (hiddenInputField === '') {
+        if (document.getElementById('in').value === '0') {
+            document.getElementById('in').value = '';
+        }
         let input = document.getElementById('in').value += btnNumber;
+
     } else {
         if (!isClear) {
             document.getElementById('in').value = btnNumber;
@@ -26,7 +37,12 @@ function dotPress (e) {
     }
 }
 
+
 function divide(e) {
+    if (operation !== '' && operation !== '/') {
+        equal();
+    }
+
     if (operation === '') {
         hiddenInputField = document.getElementById('in').value;
         operation = e.target.innerText;
@@ -40,6 +56,10 @@ function divide(e) {
 
 
 function multiplication(e) {
+    if (operation !== '' && operation !== 'x') {
+        equal();
+    }
+
     if (operation === '') {
         hiddenInputField = document.getElementById('in').value;
         operation = e.target.innerText;
@@ -51,6 +71,39 @@ function multiplication(e) {
     }
 }
 
+
+function addition(e) {
+    if (operation !== '' && operation !== '+') {
+        equal();
+    }
+
+    if (operation === '') {
+        hiddenInputField = document.getElementById('in').value;
+        operation = e.target.innerText;
+        
+    } else if (operation === '+' && isClear) {
+        equal();
+        hiddenInputField = document.getElementById('in').value;
+        operation = e.target.innerText;
+    }
+}
+
+
+function subtract(e) {
+    if (operation !== '' && operation !== '-') {
+        equal();
+    }
+
+    if (operation === '') {
+        hiddenInputField = document.getElementById('in').value;
+        operation = e.target.innerText;
+        
+    } else if (operation === '-' && isClear) {
+        equal();
+        hiddenInputField = document.getElementById('in').value;
+        operation = e.target.innerText;
+    }
+}
 
 function equal (e) {
     let firstNum = Number(hiddenInputField);
@@ -69,6 +122,24 @@ function equal (e) {
         hiddenInputField = '';
         operation = '';
         isClear = false;
+
+    } else if (operation === '+') {
+        result = firstNum + secondNum;
+        document.getElementById('in').value = result;
+        hiddenInputField = '';
+        operation = '';
+        isClear = false;
+
+    } else if (operation === '-') {
+        result = firstNum - secondNum;
+        document.getElementById('in').value = result;
+        hiddenInputField = '';
+        operation = '';
+        isClear = false;
+    }
+
+    if(e !== undefined) {
+        startover = true;
     }
     
 }
