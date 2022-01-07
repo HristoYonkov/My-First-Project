@@ -24,7 +24,11 @@ function press (e) {
             document.getElementById('in').value = btnNumber;
             isClear = true;
         } else {
-            document.getElementById('in').value += btnNumber;
+            if (document.getElementById('in').value === '0') {
+                
+            } else {
+                document.getElementById('in').value += btnNumber;
+            }
         }
     }
 }
